@@ -1,0 +1,16 @@
+{
+    "name": "example-app",
+    "version": "0.1.0",
+    "main": "public/app.js",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ],
+    "dependencies": {
+        "lodash": "~2",
+        "jquery": "~2",
+        "normalize-css": "~2"
+    },
+    "overrides": {}
+}
