@@ -12,9 +12,14 @@ exports.config =
 
 		stylesheets:
 			joinTo:
-				'style.css': /^app\/css/
+				'style.css': /^(bower_components|app\/css)/
+			order:
+				before : [
+					'bower_components/bootstrap/dist/css/bootstrap.css',
+					'bower_components/bootstrap/dist/css/bootstrap-theme.css'
+				]
 
-			before: ['bower_components/normalize-css/normalize.css']
+				after : ['app/css/app.styl']
 
 		templates:
 			joinTo: 
