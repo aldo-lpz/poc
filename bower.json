@@ -10,7 +10,8 @@
   "dependencies": {
     "lodash": "~2",
     "jquery": "~2",
-    "bootstrap":"~3"
+    "bootstrap":"~3",
+    "svg.js":"~1"
   },
   "overrides": {}
 }

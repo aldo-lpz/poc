@@ -7,7 +7,8 @@ exports.config =
 			order:
 				before: [
 					'bower_components/jquery/dist/jquery.js',
-					'bower_components/lodash/dist/lodash.js'
+					'bower_components/lodash/dist/lodash.js',
+					'bower_components/svg.js/dist/svg.js'
 				]
 
 		stylesheets:
