@@ -1,5 +1,7 @@
 Selection = can.Construct.extend
 	init : ( canvas ) ->
+		@isTryingToConnect = false
+
 		@canvas = canvas
 		@helper = @canvas.draw.group()
 
@@ -39,7 +41,9 @@ Selection = can.Construct.extend
 				x : 0
 				y : 0
 
-			line = ref.canvas.draw.line(start_point.x, start_point.y, start_point.x, start_point.y).stroke({ width: 1 })
+			line = ref.canvas.draw.line(start_point.x, start_point.y, start_point.x, start_point.y).stroke({ width: 2 })
+
+			ref.isTryingToConnect = true
 
 			$('#canvas').on "mousemove", (event) ->		
 				event.stopPropagation()	
@@ -48,25 +52,30 @@ Selection = can.Construct.extend
 					y : event.offsetY
 
 				diff =
-					x : curr_position.x - start_point.x
-					y : curr_position.y - start_point.y
+					x : Math.round curr_position.x - start_point.x
+					y : Math.round curr_position.y - start_point.y
 
 				end_point =
 					x : start_point.x + diff.x
 					y : start_point.y + diff.y
-
-				if diff.x > 50 or diff.y > 50
-					line.plot(start_point.x, start_point.y, end_point.x, end_point.y)
+				
+				line.plot(start_point.x, start_point.y, end_point.x, end_point.y)
 
 			$('#canvas').on "mouseup", (event) ->
 				event.stopPropagation()				
-				line.remove()				
+				line.remove()
+
+				for k, el of app.canvas.elements
+					continue if k is app.canvas.current_element.attr "id"
+
+					if el.inside end_point.x, end_point.y
+						app.canvas.target_element = el
+						app.canvas.connectElements()
+
+				ref.isTryingToConnect = false
+
 				$('#canvas').off "mouseup"
 				$('#canvas').off "mousemove"
-
-
-
-
 
 	clear: ->
 		@helper.hide()

@@ -8,6 +8,7 @@ Canvas = can.Construct.extend
 		@draw            = SVG("#{id}").size Canvas._WIDTH, Canvas._HEIGHT
 		@elements        = {}
 		@current_element = null
+		@target_element  = null
 
 		@selection = new Selection @
 
@@ -16,6 +17,9 @@ Canvas = can.Construct.extend
 	_addListeners : ->
 		$("#canvas").on "click", (event) =>
 			@clearSelection()
+
+	connectElements : ->
+		console.log "ready to connectElements"
 
 	clearSelection : ->
 		@current_element = null

@@ -108,8 +108,13 @@ $ ->
 		# 		'y' : initial_pos.y		
 
 
-	draw_rect 20, 20, 100, 100, 10
-	draw_rect 400, 20, 150, 100, 10
+	r1 = draw_rect 20, 20, 100, 100, 10
+	r2 = draw_rect 400, 20, 150, 100, 10
+
+	app.canvas.elements[r1.attr('id')] = r1
+	app.canvas.elements[r2.attr('id')] = r2
+
+	console.log app.canvas.elements
 
 
 
