@@ -19,7 +19,7 @@ Canvas = can.Construct.extend
 			@clearSelection()
 
 	connectElements : ->
-		console.log "ready to connectElements"
+		console.log "ready to connectElements :)"
 
 	clearSelection : ->
 		@current_element = null
