@@ -64,9 +64,9 @@ Selection = can.Construct.extend
 			$('#canvas').on "mouseup", (event) ->
 				event.stopPropagation()				
 				line.remove()
-
+				id = app.canvas.current_element.attr "id"
 				for k, el of app.canvas.elements
-					continue if k is app.canvas.current_element.attr "id"
+					continue if k is id
 
 					if el.inside end_point.x, end_point.y
 						app.canvas.target_element = el

@@ -3,7 +3,7 @@ Canvas = can.Construct.extend
 	_HEIGHT : 500
 ,
 	init : ( id ) ->
-		Selection = require 'selection'
+		Selection = require 'core/selection'
 
 		@draw            = SVG("#{id}").size Canvas._WIDTH, Canvas._HEIGHT
 		@elements        = {}
@@ -42,7 +42,6 @@ Canvas = can.Construct.extend
 		@target_element  = null
 
 	clearSelection : ->
-		@current_element = null
 		@selection.clear()
 
 	select : (element) ->
