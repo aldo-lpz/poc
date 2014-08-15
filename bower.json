@@ -11,7 +11,7 @@
     "lodash": "~2",
     "jquery": "~2",
     "bootstrap":"~3",
-    "svg.js":"~1"
+    "svg.js":"1.0.0-rc.9"
   },
   "overrides": {}
 }

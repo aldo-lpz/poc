@@ -59,11 +59,11 @@ Selection = can.Construct.extend
 			$('#canvas').on "mouseup", (event) ->
 				event.stopPropagation()				
 				line.remove()
-				id = app.canvas.current_element.attr "id"
+				id = app.canvas.current_element.id
 				for k, el of app.canvas.elements
 					continue if k is id
 
-					if el.inside end_point.x, end_point.y
+					if el.rect.inside end_point.x, end_point.y
 						app.canvas.target_element = el
 						app.canvas.connectElements()
 
@@ -76,7 +76,7 @@ Selection = can.Construct.extend
 		@helper.hide()
 
 	update : (element) ->
-		bounds = element.bbox()
+		bounds = element.rect.bbox()
 		@wrapper.move bounds.x - 10, bounds.y - 10
 		@wrapper.size bounds.width + 20, bounds.height + 20
 
