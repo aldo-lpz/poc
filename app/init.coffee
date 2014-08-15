@@ -1,11 +1,12 @@
 console.log "init del poc"
 
+window.app = {}
 
 $ ->
-	CANVAS_WIDTH  = 800
-	CANVAS_HEIGHT = 500
 
-	draw = SVG('canvas').size(CANVAS_WIDTH, CANVAS_HEIGHT)
+	Canvas = require 'canvas'
+
+	app.canvas = new Canvas 'canvas'
 
 	get_random_color = ->
 		color_str = [ 
@@ -15,8 +16,40 @@ $ ->
 		].join(",")
 		return new SVG.Color "rgb(#{color_str})"
 
+	# handler = draw.rect(10, 10)
+	# handler.attr
+	# 	'fill'   : '#fff'
+	# 	'stroke' : '#000'
+	# handler.hide()
+	# handler.draggable()
+
+	# initial_pos =
+	# 	x : 0
+	# 	y : 0
+
+	# connection = null
+
+	# handler.beforedrag = () ->
+	# 	initial_pos.x = @attr 'x'
+	# 	initial_pos.y = @attr 'x'
+
+	# handler.dragend = (delta, event) ->
+	# 	@hide()
+
+	# 	end_x = initial_pos.x + delta.x
+	# 	end_y = initial_pos.y + delta.y
+
+	# 	for r in blocks
+	# 		if r.inside end_x, end_y
+
+	# 			x = Math.round r.attr('x') + (r.attr('width') / 2) - 5
+	# 			y = Math.round r.attr('y') + (r.attr('height') / 2) - 5
+
+	# 			connection = draw.line(initial_pos.x, initial_pos.y, x, y).stroke({ width: 1 })
+
+
 	draw_rect = (x, y, w, h, r) ->
-		rect = draw.rect(w, h).radius(r)
+		rect = app.canvas.draw.rect(w, h).radius(r)
 		clr  = get_random_color()
 		rect.fill {color : clr.toHex(), opacity : 0.5}
 		rect.attr
@@ -25,16 +58,20 @@ $ ->
 			"stroke"       : clr.toHex()
 			"stroke-width" : 3
 
+		rect.on "click", (event) ->
+			event.stopPropagation()
+			app.canvas.select @
+
 		rect.draggable
 			minX : 0
 			minY : 0
-			maxX : CANVAS_WIDTH
-			maxY : CANVAS_HEIGHT
+			maxX : Canvas._WIDTH
+			maxY : Canvas._HEIGHT
 
 		return rect
 
-	for i in [1..10] by 1
-		draw_rect Math.round(600 * Math.random()), Math.round(400 * Math.random()), Math.round(200 * Math.random()), Math.round(200 * Math.random()), Math.round(10 * Math.random())
+	# for i in [1..10] by 1
+	# 	draw_rect Math.round(600 * Math.random()), Math.round(400 * Math.random()), Math.round(200 * Math.random()), Math.round(200 * Math.random()), Math.round(10 * Math.random())
 		
 
 		# handler = draw.rect 10, 10
@@ -71,8 +108,8 @@ $ ->
 		# 		'y' : initial_pos.y		
 
 
-	r1 = draw_rect 20, 20, 100, 100, 10
-	r2 = draw_rect 400, 20, 150, 100, 10
+	draw_rect 20, 20, 100, 100, 10
+	draw_rect 400, 20, 150, 100, 10
 
 
 
