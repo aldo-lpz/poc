@@ -6,22 +6,17 @@ Selection = can.Construct.extend
 		@helper = @canvas.draw.group()
 
 		@wrapper = @canvas.draw.rect(100, 100)
-		@wrapper.fill { color : '', opacity : 0 }
+		@wrapper.fill { color : 'transparent', opacity : 0 }
 		@wrapper.stroke 'blue'
 		@wrapper.attr
 			"stroke-dasharray" : "5,5"
 
-		@in_handler = @canvas.draw.rect(10, 10)
-		@in_handler.fill { color : '#fff', opacity : 1 }
-		@in_handler.stroke 'blue'
-
-		@out_handler = @canvas.draw.rect(10, 10)
-		@out_handler.fill { color : '#fff', opacity : 1 }
-		@out_handler.stroke 'blue'
+		@handler = @canvas.draw.rect(10, 10)
+		@handler.fill { color : '#fff', opacity : 1 }
+		@handler.stroke 'blue'
 
 		@helper.add @wrapper
-		@helper.add @in_handler
-		@helper.add @out_handler
+		@helper.add @handler
 
 		@helper.hide()
 
@@ -30,7 +25,7 @@ Selection = can.Construct.extend
 	_addListeners : ->		
 		ref = @
 		
-		@out_handler.on "mousedown", (event) ->
+		@handler.on "mousedown", (event) ->
 			event.stopPropagation()
 			line = null
 			start_point =
@@ -85,9 +80,9 @@ Selection = can.Construct.extend
 		@wrapper.move bounds.x - 10, bounds.y - 10
 		@wrapper.size bounds.width + 20, bounds.height + 20
 
-		@in_handler.move bounds.x - 15, bounds.y + Math.round(bounds.height / 2)
-		@out_handler.move bounds.x + bounds.width + 5 , bounds.y + Math.round(bounds.height / 2)
+		@handler.move bounds.x + Math.round(bounds.width / 2 - 5) , bounds.y + Math.round(bounds.height / 2 - 5)
 		
 		@helper.show()
+		@helper.front()
 
 module.exports = Selection
