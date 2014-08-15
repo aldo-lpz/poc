@@ -5,8 +5,9 @@ Canvas = can.Construct.extend
 	init : ( id ) ->
 		Selection = require 'selection'
 
-		@draw = SVG("#{id}").size Canvas._WIDTH, Canvas._HEIGHT
-		@elements  = {}
+		@draw            = SVG("#{id}").size Canvas._WIDTH, Canvas._HEIGHT
+		@elements        = {}
+		@current_element = null
 
 		@selection = new Selection @
 
@@ -17,10 +18,11 @@ Canvas = can.Construct.extend
 			@clearSelection()
 
 	clearSelection : ->
-		console.log "clearign selection"
+		@current_element = null
 		@selection.clear()
 
 	select : (element) ->
+		@current_element = element
 		@selection.update element
 
 module.exports = Canvas

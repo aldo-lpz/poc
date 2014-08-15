@@ -23,6 +23,51 @@ Selection = can.Construct.extend
 
 		@helper.hide()
 
+		@_addListeners()
+
+	_addListeners : ->		
+		ref = @
+		
+		@out_handler.on "mousedown", (event) ->
+			event.stopPropagation()
+			line = null
+			start_point =
+				x : @attr('x') + 5
+				y : @attr('y') + 5
+
+			end_point = 
+				x : 0
+				y : 0
+
+			line = ref.canvas.draw.line(start_point.x, start_point.y, start_point.x, start_point.y).stroke({ width: 1 })
+
+			$('#canvas').on "mousemove", (event) ->		
+				event.stopPropagation()	
+				curr_position =
+					x : event.offsetX
+					y : event.offsetY
+
+				diff =
+					x : curr_position.x - start_point.x
+					y : curr_position.y - start_point.y
+
+				end_point =
+					x : start_point.x + diff.x
+					y : start_point.y + diff.y
+
+				if diff.x > 50 or diff.y > 50
+					line.plot(start_point.x, start_point.y, end_point.x, end_point.y)
+
+			$('#canvas').on "mouseup", (event) ->
+				event.stopPropagation()				
+				line.remove()				
+				$('#canvas').off "mouseup"
+				$('#canvas').off "mousemove"
+
+
+
+
+
 	clear: ->
 		@helper.hide()
 
