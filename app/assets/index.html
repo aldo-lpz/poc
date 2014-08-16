@@ -11,19 +11,32 @@
 
     <body>
         <section class="editor_options">
-            <button type="button" class="btn btn-default" data-type="user">
-                <i class="fa fa-user"></i> add user
-            </button>
-            <button type="button" class="btn btn-default" data-type="input">
-                <i class="fa fa-keyboard-o"></i> add input
-            </button>
-            <button type="button" class="btn btn-default" data-type="output">
-                <i class="fa fa-desktop"></i> add output
-            </button>
-            <button type="button" class="btn btn-default" data-type="process">
-                <i class="fa fa-cogs"></i> add process
-            </button>
+            <div class="pull-left">
+                <button type="button" class="btn btn-default" data-type="user">
+                    <i class="fa fa-user"></i> add user
+                </button>
+                <button type="button" class="btn btn-default" data-type="input">
+                    <i class="fa fa-keyboard-o"></i> add input
+                </button>
+                <button type="button" class="btn btn-default" data-type="output">
+                    <i class="fa fa-desktop"></i> add output
+                </button>
+                <button type="button" class="btn btn-default" data-type="process">
+                    <i class="fa fa-cogs"></i> add process
+                </button>
+            </div>
+
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="clearAll">
+                    <i class="fa fa-eraser"></i> clear
+                </button>
+                <button type="button" class="btn btn-default" id="exec">
+                    <i class="fa fa-play"></i> exec
+                </button>
+            </div>
+            <div class="clearfix"></div>
         </section>
+
         <div class="app">
             <div id="canvas"></div>
         </div>

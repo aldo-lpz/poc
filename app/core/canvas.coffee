@@ -21,6 +21,12 @@ Canvas = can.Construct.extend
 	clearSelection : ->
 		@selection.clear()
 
+	clear : ->
+		@draw.clear()
+		@elements        = {}
+		@current_element = null
+		@initialBox      = null
+
 	select : (element) ->
 		@current_element = element
 		@selection.update element

@@ -17,6 +17,11 @@ $ ->
 		if type is "user"
 			app.canvas.initialBox = b
 
+	$('#clearAll').on "click", (event) ->
+		app.canvas.clear()
+
+	$('#exec').on "click", (event) ->
+		console.log "exec"
 
 
 
