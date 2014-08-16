@@ -1,17 +1,22 @@
 Box = can.Construct.extend
 	init : (x, y, w, h, r) ->
-		@rect        = null
-		@id          = null
-		@connections = []
+		@rect    = null
+		@id      = null
+		@outputs = []
+		@inputs  = []
 
 		@_draw x, y, w, h, r
 
 	connectTo : (targetBox) ->
 		source = @rect.bbox()
 
-		conn =
+		output =
 			target  : targetBox
 			line    : null
+
+		input =
+			source : @
+			line   : null
 
 		target   = targetBox.rect.bbox()
 		path_str = @getConnectionPath source, target		
@@ -20,9 +25,14 @@ Box = can.Construct.extend
 		path.stroke({ width: 2 })
 		path.attr 'fill', 'transparent'
 
-		conn.line = path
+		path.marker 'end', 5, 5, (add) ->
+			add.rect 5, 5
 
-		@connections.push conn
+		output.line = path
+		input.line  = path
+
+		targetBox.inputs.push input
+		@outputs.push output
 
 	getConnectionPath : (source, target) ->
 		# array of posible connnection points
@@ -51,7 +61,6 @@ Box = can.Construct.extend
 			x : target.x + target.width
 			y : target.y + Math.round target.height / 2
 		]
-		# get the closest points
 		d = {}
 		distances = []
 		i = 0
@@ -60,8 +69,9 @@ Box = can.Construct.extend
 			while j < 8
 				dx = Math.abs(anchors[i].x - anchors[j].x)
 				dy = Math.abs(anchors[i].y - anchors[j].y)
-				distances.push dx + dy
-				d[ distances[distances.length - 1] ] = [i, j]
+				if (i is j - 4) or (((i isnt 3 and j isnt 6) or anchors[i].x < anchors[j].x) and ((i isnt 2 and j isnt 7) or anchors[i].x > anchors[j].x) and ((i isnt 0 and j isnt 5) or anchors[i].y > anchors[j].y) and ((i isnt 1 and j isnt 4) or anchors[i].y < anchors[j].y))
+					distances.push dx + dy
+					d[ distances[distances.length - 1] ] = [i, j]
 				j++
 			i++
 		closest = d[Math.min.apply(Math, distances)]
@@ -102,9 +112,13 @@ Box = can.Construct.extend
 			maxY : Canvas._HEIGHT
 
 		@rect.dragmove = (d, event) ->
-			if ref.connections.length > 0
-				for c in ref.connections
-					c.line.plot ref.getConnectionPath(ref.rect.bbox(), c.target.rect.bbox())
+			if ref.outputs.length > 0
+				for output in ref.outputs
+					output.line.plot ref.getConnectionPath( ref.rect.bbox(), output.target.rect.bbox() )
+
+			if ref.inputs.length > 0
+				for input in ref.inputs
+					input.line.plot ref.getConnectionPath( input.source.rect.bbox(), ref.rect.bbox() )
 
 		@id = @rect.attr 'id'
 

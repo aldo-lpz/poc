@@ -59,13 +59,13 @@ Selection = can.Construct.extend
 			$('#canvas').on "mouseup", (event) ->
 				event.stopPropagation()				
 				line.remove()
-				id = app.canvas.current_element.id
+				
 				for k, el of app.canvas.elements
-					continue if k is id
+					continue if k is app.canvas.current_element.id
 
 					if el.rect.inside end_point.x, end_point.y
-						app.canvas.target_element = el
-						app.canvas.connectElements()
+						app.canvas.current_element.connectTo el
+						ref.clear()
 
 				ref.isTryingToConnect = false
 
