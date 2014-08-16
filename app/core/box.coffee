@@ -1,14 +1,15 @@
 Box = can.Construct.extend
-	init : (x, y, w, h, r) ->
+	init : (type) ->
 		@rect    = null
 		@id      = null
 		@outputs = []
 		@inputs  = []
+		@type    = type
 
-		@_draw x, y, w, h, r
+		@_draw Math.round(Canvas._WIDTH / 2), Math.round(Canvas._HEIGHT / 2), 100, 70, 10
 
 	connectTo : (targetBox) ->
-		source = @rect.bbox()
+		source = @group.bbox()
 
 		output =
 			target  : targetBox
@@ -18,7 +19,7 @@ Box = can.Construct.extend
 			source : @
 			line   : null
 
-		target   = targetBox.rect.bbox()
+		target   = targetBox.group.bbox()
 		path_str = @getConnectionPath source, target		
 
 		path = app.canvas.draw.path path_str
@@ -92,6 +93,7 @@ Box = can.Construct.extend
 
 	_draw : (x, y, w, h, r) ->
 		ref   = @
+		@group = app.canvas.draw.group()
 		@rect = app.canvas.draw.rect(w, h).radius(r)
 		clr   = Utils.get_random_color()
 		@rect.fill {color : clr.toHex(), opacity : 0.5}
@@ -99,26 +101,33 @@ Box = can.Construct.extend
 			'x'            : x
 			'y'            : y
 			"stroke"       : clr.toHex()
-			"stroke-width" : 3
+			"stroke-width" : 3		
 
-		@rect.on "click", (event) ->
+		text = app.canvas.draw.text("#{@type}").attr
+			'x' : Math.round x + w / 2
+			'y' : Math.round y + h / 2
+
+		@group.add @rect
+		@group.add text
+
+		@group.on "click", (event) ->
 			event.stopPropagation()
 			app.canvas.select ref
 
-		@rect.draggable
-			minX : 0
-			minY : 0
-			maxX : Canvas._WIDTH
-			maxY : Canvas._HEIGHT
+		@group.draggable()
+			# minX : 0
+			# minY : 0
+			# maxX : Canvas._WIDTH
+			# maxY : Canvas._HEIGHT
 
-		@rect.dragmove = (d, event) ->
-			if ref.outputs.length > 0
+		@group.dragmove = (d, event) ->
+			if ref.outputs and ref.outputs.length > 0
 				for output in ref.outputs
-					output.line.plot ref.getConnectionPath( ref.rect.bbox(), output.target.rect.bbox() )
+					output.line.plot ref.getConnectionPath( ref.group.bbox(), output.target.group.bbox() )
 
-			if ref.inputs.length > 0
+			if ref.inputs and ref.inputs.length > 0
 				for input in ref.inputs
-					input.line.plot ref.getConnectionPath( input.source.rect.bbox(), ref.rect.bbox() )
+					input.line.plot ref.getConnectionPath( input.source.group.bbox(), ref.group.bbox() )
 
 		@id = @rect.attr 'id'
 

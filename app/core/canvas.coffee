@@ -8,6 +8,7 @@ Canvas = can.Construct.extend
 		@draw            = SVG("#{id}").size Canvas._WIDTH, Canvas._HEIGHT
 		@elements        = {}
 		@current_element = null
+		@initialBox      = null
 
 		@selection = new Selection @
 

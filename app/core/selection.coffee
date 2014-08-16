@@ -63,7 +63,7 @@ Selection = can.Construct.extend
 				for k, el of app.canvas.elements
 					continue if k is app.canvas.current_element.id
 
-					if el.rect.inside end_point.x, end_point.y
+					if el.group.inside end_point.x, end_point.y
 						app.canvas.current_element.connectTo el
 						ref.clear()
 
@@ -76,7 +76,7 @@ Selection = can.Construct.extend
 		@helper.hide()
 
 	update : (element) ->
-		bounds = element.rect.bbox()
+		bounds = element.group.bbox()
 		@wrapper.move bounds.x - 10, bounds.y - 10
 		@wrapper.size bounds.width + 20, bounds.height + 20
 
