@@ -40,9 +40,23 @@ Editor = can.Control.extend
 		
 		@element.html can.view 'templates/editor.hbs', @data
 
+		@data.values.bind 'change', (evt, attr, how, newVal, oldVal) =>
+			if app.canvas.current_element
+				app.canvas.current_element.meta[attr] = newVal
+
+	setValues : (type, meta) ->
+		@data.attr 'element', type
+		for key, option of meta
+			@data.values.attr "#{key}", option
+
+	clearValues : ->
+		@data.attr 'element', ''
+		@data.attr 'values.message', ''
+		@data.attr 'values.type', ''
+		@data.attr 'values.authenticated', false
+
 
 $ ->
-
 	editor = new Editor "#properties"
 
 	window.Canvas = require 'core/canvas'
@@ -53,7 +67,13 @@ $ ->
 
 	$('.btn-default').on "click", (event) ->
 		type = $(@).data 'type'
-		b = new Box "#{type}"
+		meta = {}
+		switch type
+			when 'input', 'output' then meta = { message : '', type : '' }
+			when 'process' then meta = { message : '' }
+			when 'user' then meta = { authenticated : false }
+		
+		b = new Box "#{type}", meta
 
 		if type is "user"
 			app.canvas.initialBox = b
@@ -65,13 +85,10 @@ $ ->
 		console.log "exec"
 
 	$(app).on "elementSelected", (event) ->
-		editor.data.attr 'element', event._data.type
+		editor.setValues app.canvas.current_element.type, app.canvas.current_element.meta
 
 	$(app).on "selectionCleared", (event) ->
-		editor.data.attr 'element', ''
-		editor.data.attr 'values.message', ''
-		editor.data.attr 'values.type', ''
-		editor.data.attr 'values.authenticated', false
+		editor.clearValues()
 
 
 

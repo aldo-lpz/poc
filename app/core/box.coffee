@@ -1,11 +1,11 @@
 Box = can.Construct.extend
-	init : (type) ->
+	init : (type, meta) ->
 		@rect    = null
 		@id      = null
 		@outputs = []
 		@inputs  = []
 		@type    = type
-		@meta    = {}
+		@meta    = meta
 
 		@_draw Math.round(Canvas._WIDTH / 2), Math.round(Canvas._HEIGHT / 2), 100, 70, 10
 
@@ -111,9 +111,9 @@ Box = can.Construct.extend
 		@group.add @rect
 		@group.add text
 
-		@group.on "click", (event) ->
+		@group.on "click", (event) =>
 			event.stopPropagation()
-			app.canvas.select ref
+			app.canvas.select @
 
 		@group.draggable()
 			# minX : 0
