@@ -5,6 +5,7 @@ Box = can.Construct.extend
 		@outputs = []
 		@inputs  = []
 		@type    = type
+		@meta    = {}
 
 		@_draw Math.round(Canvas._WIDTH / 2), Math.round(Canvas._HEIGHT / 2), 100, 70, 10
 

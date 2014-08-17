@@ -20,6 +20,7 @@ Canvas = can.Construct.extend
 
 	clearSelection : ->
 		@selection.clear()
+		$(app).trigger "selectionCleared"
 
 	clear : ->
 		@draw.clear()
@@ -31,5 +32,9 @@ Canvas = can.Construct.extend
 	select : (element) ->
 		@current_element = element
 		@selection.update element
+		
+		$(app).trigger 
+			type : "elementSelected"
+			_data: @current_element
 
 module.exports = Canvas

@@ -22,9 +22,9 @@ exports.config =
 
 				after : ['app/css/app.styl']
 
-		templates:
-			joinTo: 
-				'app.js' : /^app\/templates/
+		#templates:
+		#	joinTo: 
+		#		'app.js' : /^app\/templates/
 
 	plugins:
 		autoReload:
