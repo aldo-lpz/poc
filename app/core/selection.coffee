@@ -3,6 +3,11 @@ Selection = can.Construct.extend
 		@isTryingToConnect = false
 
 		@canvas = canvas
+
+		@createWrapper()
+		@_addListeners()
+
+	createWrapper : ->
 		@helper = @canvas.draw.group()
 
 		@wrapper = @canvas.draw.rect(100, 100)
@@ -19,8 +24,6 @@ Selection = can.Construct.extend
 		@helper.add @handler
 
 		@helper.hide()
-
-		@_addListeners()
 
 	_addListeners : ->		
 		ref = @

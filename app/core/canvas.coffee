@@ -26,6 +26,7 @@ Canvas = can.Construct.extend
 		@elements        = {}
 		@current_element = null
 		@initialBox      = null
+		@selection.createWrapper()
 
 	select : (element) ->
 		@current_element = element
