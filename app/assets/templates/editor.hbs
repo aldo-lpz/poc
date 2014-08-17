@@ -1,1 +1,38 @@
 <h3>Properties : {{element}}</h3>
+
+<div class="form-group">
+{{#compare element '==' "input"}}
+	<label for="inputmessage">message</label>
+	<input type="email" class="form-control" id="inputmessage" can-value="values.message" placeholder="{{defs.input.message}}" value="{{values.message}}">
+	<label for="selecttype">input type</label>
+	<select can-value="values.type" class="form-control">
+		{{#each defs.input.type}}
+		<option value='{{.}}'>{{.}}</option>
+		{{/each}}
+	</select>
+{{/compare}}
+
+{{#compare element '==' "output"}}
+	<label for="outputmessage">message</label>
+	<input type="email" class="form-control" id="outputmessage" can-value="values.message" placeholder="{{defs.output.message}}" value="{{values.message}}">
+	<label for="selecttype">input type</label>
+	<select can-value="values.type" class="form-control">
+		{{#each defs.output.type}}
+		<option value='{{.}}'>{{.}}</option>
+		{{/each}}
+	</select>
+{{/compare}}
+
+{{#compare element '==' "process"}}
+	<label for="processmessage">message</label>
+	<input type="email" class="form-control" id="processmessage" can-value="values.message" placeholder="{{defs.process.message}}" value="{{values.message}}">
+{{/compare}}
+</div>
+
+{{#compare element '==' "user"}}
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" can-value="values.authenticated">user needs authentication
+		</label>
+	</div>
+{{/compare}}
