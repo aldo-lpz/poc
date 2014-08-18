@@ -1,71 +1,23 @@
 console.log "init del poc"
 
-window.app = {}
-
-can.Mustache.registerHelper "compare", ( arg1, op, arg2, options ) ->
-	operators =
-		'==' : (l, r) -> l is r
-		'!=' : (l, r) -> l isnt r
-		'<'  : (l, r) -> l < r
-		'>'  : (l, r) -> l > r
-		'<=' : (l, r) -> l <= r
-		'>=' : (l, r) -> l >= r
-	## fix temporal arg1 lo hago funcion por que es un compute de can js
-	if operators[op](arg1(), arg2)
-		return options.fn options.contexts or @
-	else
-		return options.inverse options.contexts or @
-
-Editor = can.Control.extend
-	init : ->
-		@data = new can.Map
-			element : ""
-			defs :
-				input :
-					message : 'type a message for your input'
-					type    : ['number', 'string']
-				output :
-					message	: 'type a message for your output',
-					type    : ['alert', 'message']
-				process :
-					message : 'describe the process'
-				user :
-					authenticated : false
-
-			values :
-				message : ''
-				type : ''
-				authenticated : false
-
-		
-		@element.html can.view 'templates/editor.hbs', @data
-
-		@data.values.bind 'change', (evt, attr, how, newVal, oldVal) =>
-			if app.canvas.current_element
-				app.canvas.current_element.meta[attr] = newVal
-
-	setValues : (type, meta) ->
-		@data.attr 'element', type
-		for key, option of meta
-			@data.values.attr "#{key}", option
-
-	clearValues : ->
-		@data.attr 'element', ''
-		@data.attr 'values.message', ''
-		@data.attr 'values.type', ''
-		@data.attr 'values.authenticated', false
-
+window.app = 
+	user : 
+		authenticated : true
 
 $ ->
-	editor = new Editor "#properties"
+	exec_json = {}
 
 	window.Canvas = require 'core/canvas'
 	window.Utils  = require 'core/utils'
 	Box           = require 'core/box'
+	Editor        = require 'core/editor'
+	Engine        = require 'core/engine'
 
-	app.canvas = new Canvas 'canvas'	
+	app.editor = new Editor "#properties"
+	app.engine = new Engine '#engine'
+	app.canvas = new Canvas 'canvas'
 
-	$('.btn-default').on "click", (event) ->
+	$('.add_button').on "click", (event) ->
 		type = $(@).data 'type'
 		meta = {}
 		switch type
@@ -82,13 +34,30 @@ $ ->
 		app.canvas.clear()
 
 	$('#exec').on "click", (event) ->
-		console.log "exec"
+		exec_json.startPoint = 
+			type : app.canvas.initialBox.type
+			meta : app.canvas.initialBox.meta
+		
+		exec_json.steps = []
+		
+		getOutputs = (element) ->
+			for output in element.outputs
+				exec_json.steps.push 
+					type : output.target.type
+					meta : output.target.meta
+				
+				if output.target.outputs and output.target.outputs.length > 0
+					getOutputs output.target
+
+		getOutputs app.canvas.initialBox
+		app.editor.hide()
+		app.engine.exec exec_json
 
 	$(app).on "elementSelected", (event) ->
-		editor.setValues app.canvas.current_element.type, app.canvas.current_element.meta
+		app.editor.setValues app.canvas.current_element.type, app.canvas.current_element.meta
 
 	$(app).on "selectionCleared", (event) ->
-		editor.clearValues()
+		app.editor.clearValues()
 
 
 

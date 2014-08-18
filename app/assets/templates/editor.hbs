@@ -3,9 +3,10 @@
 <div class="form-group">
 {{#compare element '==' "input"}}
 	<label for="inputmessage">message</label>
-	<input type="email" class="form-control" id="inputmessage" can-value="values.message" placeholder="{{defs.input.message}}" value="{{values.message}}">
+	<input type="text" class="form-control" id="inputmessage" can-value="values.message" placeholder="{{defs.input.message}}" value="{{values.message}}">
 	<label for="selecttype">input type</label>
 	<select can-value="values.type" class="form-control">
+		<option value=''>select...</option>
 		{{#each defs.input.type}}
 		<option value='{{.}}'>{{.}}</option>
 		{{/each}}
@@ -14,9 +15,10 @@
 
 {{#compare element '==' "output"}}
 	<label for="outputmessage">message</label>
-	<input type="email" class="form-control" id="outputmessage" can-value="values.message" placeholder="{{defs.output.message}}" value="{{values.message}}">
+	<input type="text" class="form-control" id="outputmessage" can-value="values.message" placeholder="{{defs.output.message}}" value="{{values.message}}">
 	<label for="selecttype">input type</label>
 	<select can-value="values.type" class="form-control">
+		<option value=''>select...</option>
 		{{#each defs.output.type}}
 		<option value='{{.}}'>{{.}}</option>
 		{{/each}}
@@ -25,7 +27,7 @@
 
 {{#compare element '==' "process"}}
 	<label for="processmessage">message</label>
-	<input type="email" class="form-control" id="processmessage" can-value="values.message" placeholder="{{defs.process.message}}" value="{{values.message}}">
+	<input type="text" class="form-control" id="processmessage" can-value="values.message" placeholder="{{defs.process.message}}" value="{{values.message}}">
 {{/compare}}
 </div>
 

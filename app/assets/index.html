@@ -12,16 +12,16 @@
     <body>
         <section class="editor_options">
             <div class="pull-left">
-                <button type="button" class="btn btn-default" data-type="user">
+                <button type="button" class="btn btn-default add_button" data-type="user">
                     <i class="fa fa-user"></i> add user
                 </button>
-                <button type="button" class="btn btn-default" data-type="input">
+                <button type="button" class="btn btn-default add_button" data-type="input">
                     <i class="fa fa-keyboard-o"></i> add input
                 </button>
-                <button type="button" class="btn btn-default" data-type="output">
+                <button type="button" class="btn btn-default add_button" data-type="output">
                     <i class="fa fa-desktop"></i> add output
                 </button>
-                <button type="button" class="btn btn-default" data-type="process">
+                <button type="button" class="btn btn-default add_button" data-type="process">
                     <i class="fa fa-cogs"></i> add process
                 </button>
             </div>
@@ -41,8 +41,11 @@
             <div id="canvas"></div>
         </div>
 
-         <div id="properties" class="pull-right">             
-         </div>
+        <div id="properties" class="pull-right">             
+        </div>
+
+        <div id="engine" class="pull-right" style="display:none;">             
+        </div>
 
         <script src="app.js" onload="require('init');"></script>
     </body>
