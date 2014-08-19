@@ -102,11 +102,13 @@ Box = can.Construct.extend
 			'x'            : x
 			'y'            : y
 			"stroke"       : clr.toHex()
-			"stroke-width" : 3		
+			"stroke-width" : 3
+			"cursor"       : 'move'
 
 		text = app.canvas.draw.text("#{@type}").attr
-			'x' : Math.round x + w / 2
-			'y' : Math.round y + h / 2
+			'x'      : Math.round x + w / 2
+			'y'      : Math.round y + h / 2
+			"cursor" : 'move'
 
 		@group.add @rect
 		@group.add text
