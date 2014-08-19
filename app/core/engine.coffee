@@ -7,7 +7,6 @@ Engine = can.Control.extend
 		@element.html can.view 'templates/engine.hbs', @data
 
 	exec : (json) ->
-		@show()
 		@data.attr "status", "executing code"
 
 		$inputArea   = @element.find '.inputArea'
@@ -125,15 +124,8 @@ Engine = can.Control.extend
 
 							$outputArea.append can.view 'templates/output.hbs', obj
 
-	show : ->
-		@element.show()
-
-	hide : ->
-		@element.hide()
 
 	'#end_process click' : () ->
 		@data.attr "status", "end"
-		@hide()
-		app.editor.show()
 
 module.exports = Engine

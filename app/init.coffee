@@ -14,8 +14,28 @@ $ ->
 	Engine        = require 'core/engine'
 
 	app.editor = new Editor "#properties"
-	app.engine = new Engine '#engine'
+	app.engine = new Engine '.modal-content'
 	app.canvas = new Canvas 'canvas'
+
+	
+	$btn = $ '.toggleUser'
+
+	check_user = ->
+		if app.user.authenticated
+			$btn.html """
+				<i class="fa fa-sign-out"></i> logout
+			"""
+		else
+			$btn.html """
+				<i class="fa fa-sign-in"></i> login
+			"""
+
+	check_user()
+
+	$btn.on "click", (event) ->
+		app.user.authenticated = if app.user.authenticated then false else true
+		check_user()
+
 
 	$('.add_button').on "click", (event) ->
 		type = $(@).data 'type'
@@ -50,7 +70,6 @@ $ ->
 					getOutputs output.target
 
 		getOutputs app.canvas.initialBox
-		app.editor.hide()
 		app.engine.exec exec_json
 
 	$(app).on "elementSelected", (event) ->

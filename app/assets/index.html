@@ -30,6 +30,9 @@
                             <button type="button" class="btn btn-default add_button" data-type="process">
                                 <i class="fa fa-cogs"></i> add process
                             </button>
+                            <button type="button" class="btn btn-info toggleUser">
+                                <i class="fa fa-cogs"></i> add process
+                            </button>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -37,7 +40,7 @@
                             <button type="button" class="btn btn-danger" id="clearAll">
                                 <i class="fa fa-eraser"></i> clear
                             </button>
-                            <button type="button" class="btn btn-warning" id="exec">
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#execModal" id="exec">
                                 <i class="fa fa-play"></i> exec
                             </button>
                         </div>                        
@@ -48,38 +51,15 @@
                 </div>
             </section>
         </div>
-        
 
- <!--        <section class="editor_options">
-            <div class="pull-left">
-                <button type="button" class="btn btn-default add_button" data-type="user">
-                    <i class="fa fa-user"></i> add user
-                </button>
-                <button type="button" class="btn btn-default add_button" data-type="input">
-                    <i class="fa fa-keyboard-o"></i> add input
-                </button>
-                <button type="button" class="btn btn-default add_button" data-type="output">
-                    <i class="fa fa-desktop"></i> add output
-                </button>
-                <button type="button" class="btn btn-default add_button" data-type="process">
-                    <i class="fa fa-cogs"></i> add process
-                </button>
+
+        <div class="modal fade" id="execModal" tabindex="-1" role="dialog" aria-labelledby="execModalId" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                </div>
             </div>
-
-            <div class="pull-right">
-                
-            </div>
-            <div class="clearfix"></div>
-        </section> -->
-<!-- 
-        <div class="app pull-left">
-            <div id="canvas"></div>
-        </div> -->
-
-        
-
-        <div id="engine" class="pull-right" style="display:none;">             
-        </div>
+        </div>        
 
         <script src="app.js" onload="require('init');"></script>
     </body>

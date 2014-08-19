@@ -26,12 +26,6 @@ Editor = can.Control.extend
 			if app.canvas.current_element
 				app.canvas.current_element.meta[attr] = newVal
 
-	show : ->
-		@element.show()
-
-	hide : ->
-		@element.hide()
-
 	setValues : (type, meta) ->
 		@data.attr 'element', type
 		for key, option of meta
