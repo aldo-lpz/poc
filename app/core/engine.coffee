@@ -125,10 +125,6 @@ Engine = can.Control.extend
 
 							$outputArea.append can.view 'templates/output.hbs', obj
 
-
-
-
-
 	show : ->
 		@element.show()
 

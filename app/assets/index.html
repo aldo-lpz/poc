@@ -3,14 +3,54 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>poc</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <section class="editor_options">
+        <div class="container-fluid">
+            <aside class="sidebar">
+                <div id="properties" class=""></div>
+            </aside>
+            <section class="editorArea">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default add_button" data-type="user">
+                                <i class="fa fa-user"></i> add user
+                            </button>
+                            <button type="button" class="btn btn-default add_button" data-type="input">
+                                <i class="fa fa-keyboard-o"></i> add input
+                            </button>
+                            <button type="button" class="btn btn-default add_button" data-type="output">
+                                <i class="fa fa-desktop"></i> add output
+                            </button>
+                            <button type="button" class="btn btn-default add_button" data-type="process">
+                                <i class="fa fa-cogs"></i> add process
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-danger" id="clearAll">
+                                <i class="fa fa-eraser"></i> clear
+                            </button>
+                            <button type="button" class="btn btn-warning" id="exec">
+                                <i class="fa fa-play"></i> exec
+                            </button>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="app">
+                    <div id="canvas"></div>
+                </div>
+            </section>
+        </div>
+        
+
+ <!--        <section class="editor_options">
             <div class="pull-left">
                 <button type="button" class="btn btn-default add_button" data-type="user">
                     <i class="fa fa-user"></i> add user
@@ -27,22 +67,16 @@
             </div>
 
             <div class="pull-right">
-                <button type="button" class="btn btn-default" id="clearAll">
-                    <i class="fa fa-eraser"></i> clear
-                </button>
-                <button type="button" class="btn btn-default" id="exec">
-                    <i class="fa fa-play"></i> exec
-                </button>
+                
             </div>
             <div class="clearfix"></div>
-        </section>
-
+        </section> -->
+<!-- 
         <div class="app pull-left">
             <div id="canvas"></div>
-        </div>
+        </div> -->
 
-        <div id="properties" class="pull-right">             
-        </div>
+        
 
         <div id="engine" class="pull-right" style="display:none;">             
         </div>
