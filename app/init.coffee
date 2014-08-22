@@ -1,5 +1,3 @@
-console.log "init del poc"
-
 window.app = 
 	user : 
 		authenticated : true
